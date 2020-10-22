@@ -1,5 +1,5 @@
 import Command from "@oclif/command";
-import chalk from "chalk";
+import * as chalk from "chalk";
 import * as figures from "figures";
 import * as fs from "fs-extra";
 import * as path from "path";
@@ -15,11 +15,15 @@ export class FolderDetails {
 
   constructor(private command: Command) {
     this.setFolder(process.cwd());
-    this.info = {} as Record<string, any>;
+    this.plugin = {} as Record<string, any>;
   }
 
   public async doesFileExist(file: string): Promise<boolean> {
     return (await fs.pathExists(file)) && fs.statSync(file).isFile();
+  }
+
+  public mergeWithFolder(item: string): string {
+    return path.join(this.folder, item);
   }
 
   public setFolder(folderPath: string): void {
@@ -40,7 +44,7 @@ export class FolderDetails {
     }
 
     try {
-      this.info = require(this.infoFile);
+      this.plugin = require(this.infoFile);
     } catch (e) {
       throw new Error('The "package.json" file is invalid.');
     }
@@ -48,15 +52,15 @@ export class FolderDetails {
     // This errors out if it fails
     this.validateAppDotJson();
 
-    const homepageRef = `plugins/${this.info.name}`;
-    if (this.info.homepage !== homepageRef)
+    const homepageRef = `plugins/${this.plugin.name}`;
+    if (this.plugin.homepage !== homepageRef)
       throw new Error(
         `The homepage variable is invalid. Must be ${homepageRef}`
       );
   }
 
   private validateAppDotJson(): void {
-    const result = tv4.validateMultiple(this.info, packageJsonSchema);
+    const result = tv4.validateMultiple(this.plugin, packageJsonSchema);
 
     // We only care if the result is invalid, as it should pass successfully
     if (!this.isValidResult(result)) {
@@ -69,6 +73,10 @@ export class FolderDetails {
         'Invalid "package.json" file, please ensure it matches the schema.'
       );
     }
+  }
+
+  public setAppInfo(appInfo): void {
+    this.plugin = appInfo;
   }
 
   private isValidResult(result: tv4.MultiResult): boolean {
