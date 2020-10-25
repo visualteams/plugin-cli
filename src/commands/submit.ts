@@ -39,7 +39,6 @@ export default class Submit extends Command {
     }
 
     const packager = new AppPackager(this, fd);
-    console.log('packager:', packager);
     try {
       const zipName = await packager.compress();
     } catch (error) {

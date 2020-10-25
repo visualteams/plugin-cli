@@ -6,7 +6,7 @@ export class AppPackager {
   constructor(private command: Command, private fd: FolderDetails) {}
 
   public async compress() {
-    const dest = `/tmp/${this.fd.info.name}-${this.fd.info.version}.tar.gz`;
+    const dest = `/tmp/${this.fd.plugin.name}-${this.fd.plugin.version}.tar.gz`;
 
     await new Promise((resolve, reject) =>
       targz.compress(
