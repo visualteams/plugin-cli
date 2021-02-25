@@ -1,6 +1,7 @@
 import { Command } from "@oclif/command";
 const targz = require("targz");
 import { FolderDetails } from "./folderDetails";
+import * as path from "path";
 
 export class AppPackager {
   constructor(private command: Command, private fd: FolderDetails) {}
@@ -13,6 +14,11 @@ export class AppPackager {
         {
           src: ".",
           dest,
+          tar: {
+            ignore: function (name) {
+              return path.dirname(name).includes("node_modules");
+            },
+          },
         },
         function (err) {
           if (err) reject(err);

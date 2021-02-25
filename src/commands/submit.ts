@@ -41,11 +41,10 @@ export default class Submit extends Command {
     const packager = new AppPackager(this, fd);
     try {
       const zipName = await packager.compress();
+
+      cli.action.stop(`packaged ! (${zipName})`);
     } catch (error) {
       this.error(error && error.message ? error.message : error);
-      return;
     }
-
-    cli.action.stop("packaged!");
   }
 }
