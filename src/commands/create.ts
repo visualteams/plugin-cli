@@ -15,7 +15,7 @@ export default class Create extends Command {
       description: "Internal Name of the plugin",
     }),
     displayName: flags.string({
-      char: "n",
+      char: "p",
       description: "Public Name of the plugin",
     }),
     description: flags.string({

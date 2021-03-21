@@ -15,10 +15,10 @@ export const packageJsonTemplate = ({
     },
     "homepage": "plugins/${name}",
     "dependencies": {
-      "@material-ui/core": "^4.11.0",
-      "@visualteams/plugin-engine": "1.1.0",
-      "react": "^16.13.1",
-      "react-dom": "^16.13.1",
+      "@material-ui/core": "4.11.0",
+      "@visualteams/plugin-engine": "1.2.5",
+      "react": "16.13.1",
+      "react-dom": "16.13.1",
       "react-scripts": "3.4.3"
     },
     "devDependencies": {
