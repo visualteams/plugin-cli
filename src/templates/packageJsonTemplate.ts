@@ -40,7 +40,9 @@ export const packageJsonTemplate = ({
     },
     "visualteams": {
       "displayName": "${displayName}",
-      "icon": ""
+      "icon": "",
+      "minTargetVersion": "1.20.0",
+      "maxTargetVersion": "2.0.0"
     }
 }`;
 };

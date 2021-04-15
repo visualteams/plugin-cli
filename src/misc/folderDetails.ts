@@ -10,12 +10,16 @@ import { packageJsonSchema } from "./packageJsonSchema";
 
 export class FolderDetails {
   public folder: string;
+
   public toZip: string;
+
   public infoFile: string;
+
+  public plugin: Record<string, any>;
 
   constructor(private command: Command) {
     this.setFolder(process.cwd());
-    this.plugin = {} as Record<string, any>;
+    this.plugin = {};
   }
 
   public async doesFileExist(file: string): Promise<boolean> {

@@ -42,7 +42,7 @@ export class CloudAuth {
     this.config.set("vtplugin", {});
   }
 
-  private getHeaders(): Record<string, any> {
+  public getHeaders(): Record<string, any> {
     return {
       Authorization: `Bearer ${this.config.get("vtplugin.access_token")}`,
     };

@@ -6,7 +6,8 @@ export const tsConfigServerTemplate = (): string => {
     "declaration": true,
     "outDir": "./dist",
     "strict": true,
-    "esModuleInterop": true
+    "esModuleInterop": true,
+    "skipLibCheck": true
   },
   "include": ["./server/*"]
 }`;

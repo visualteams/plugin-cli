@@ -27,6 +27,10 @@ export class AppPackager {
       )
     );
 
-    return dest;
+    return {
+      filePath: dest,
+      version: this.fd.plugin.version,
+      pluginName: this.fd.plugin.name,
+    };
   }
 }
