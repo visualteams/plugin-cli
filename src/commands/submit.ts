@@ -52,10 +52,8 @@ export default class Submit extends Command {
 
       const pluginId = pluginsList.data[0].id;
 
-      console.log("pluginId:", pluginId);
-
       const form_data = new FormData();
-      form_data.append("plugindId", pluginId);
+      form_data.append("pluginId", pluginId);
       form_data.append("version", appCompressed.version);
       form_data.append(
         "minTargetVersion",
@@ -67,15 +65,16 @@ export default class Submit extends Command {
       );
       form_data.append("file", fs.createReadStream(appCompressed.filePath));
 
-      console.log('cloudAuth.getHeaders():', cloudAuth.getHeaders());
-
-      await axios.post("/versions/publish", {
-        headers: cloudAuth.getHeaders(),
-        data: form_data,
+      await axios.post("/versions/publish", form_data, {
+        headers: {
+          ...cloudAuth.getHeaders(),
+          ...form_data.getHeaders(),
+        },
       });
 
       cli.action.stop(`published !`);
     } catch (error) {
+      console.error(error);
       this.error(error && error.message ? error.message : error);
     }
   }
