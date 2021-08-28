@@ -61,7 +61,7 @@ export default class Submit extends Command {
       );
       form_data.append(
         "maxTargetVersion",
-        fd.plugin.visualteams.maxTargetVersion
+        fd.plugin.visualteams.maxTargetVersion || "2.0.0"
       );
       form_data.append("file", fs.createReadStream(appCompressed.filePath));
 
@@ -74,8 +74,7 @@ export default class Submit extends Command {
 
       cli.action.stop(`published !`);
     } catch (error) {
-      console.error(error);
-      this.error(error && error.message ? error.message : error);
+      this.error(error?.response?.statusText || error?.message || error);
     }
   }
 }
